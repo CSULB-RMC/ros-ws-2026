@@ -1,0 +1,38 @@
+[0.911s] Invoking command in '/home/leopan/Programming/ros-ws-2026/src/teleop': PYTHONPATH=/home/leopan/Programming/ros-ws-2026/build/teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/teleop build --build-base /home/leopan/Programming/ros-ws-2026/build/teleop/build install --record /home/leopan/Programming/ros-ws-2026/build/teleop/install.log --single-version-externally-managed install_data
+[1.050s] running egg_info
+[1.050s] creating ../../build/teleop/teleop.egg-info
+[1.059s] writing ../../build/teleop/teleop.egg-info/PKG-INFO
+[1.060s] writing dependency_links to ../../build/teleop/teleop.egg-info/dependency_links.txt
+[1.060s] writing entry points to ../../build/teleop/teleop.egg-info/entry_points.txt
+[1.060s] writing requirements to ../../build/teleop/teleop.egg-info/requires.txt
+[1.060s] writing top-level names to ../../build/teleop/teleop.egg-info/top_level.txt
+[1.060s] writing manifest file '../../build/teleop/teleop.egg-info/SOURCES.txt'
+[1.081s] reading manifest file '../../build/teleop/teleop.egg-info/SOURCES.txt'
+[1.081s] adding license file 'LICENSE'
+[1.081s] writing manifest file '../../build/teleop/teleop.egg-info/SOURCES.txt'
+[1.081s] running build
+[1.081s] running build_py
+[1.081s] creating /home/leopan/Programming/ros-ws-2026/build/teleop/build
+[1.081s] creating /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib
+[1.082s] creating /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop
+[1.082s] copying teleop/driver_station.py -> /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop
+[1.082s] copying teleop/__init__.py -> /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop
+[1.082s] running install
+[1.085s] running install_lib
+[1.095s] creating /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop
+[1.095s] copying /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop/driver_station.py -> /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop
+[1.095s] copying /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop/__init__.py -> /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop
+[1.095s] byte-compiling /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop/driver_station.py to driver_station.cpython-312.pyc
+[1.096s] byte-compiling /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop/__init__.py to __init__.cpython-312.pyc
+[1.096s] running install_data
+[1.096s] creating /home/leopan/Programming/ros-ws-2026/install/teleop/share/ament_index
+[1.096s] creating /home/leopan/Programming/ros-ws-2026/install/teleop/share/ament_index/resource_index
+[1.096s] creating /home/leopan/Programming/ros-ws-2026/install/teleop/share/ament_index/resource_index/packages
+[1.096s] copying resource/teleop -> /home/leopan/Programming/ros-ws-2026/install/teleop/share/ament_index/resource_index/packages
+[1.096s] copying package.xml -> /home/leopan/Programming/ros-ws-2026/install/teleop/share/teleop
+[1.096s] running install_egg_info
+[1.107s] Copying ../../build/teleop/teleop.egg-info to /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop-0.0.0-py3.12.egg-info
+[1.107s] running install_scripts
+[1.177s] Installing driver_station script to /home/leopan/Programming/ros-ws-2026/install/teleop/lib/teleop
+[1.177s] writing list of installed files to '/home/leopan/Programming/ros-ws-2026/build/teleop/install.log'
+[1.191s] Invoked command in '/home/leopan/Programming/ros-ws-2026/src/teleop' returned '0': PYTHONPATH=/home/leopan/Programming/ros-ws-2026/build/teleop/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/teleop build --build-base /home/leopan/Programming/ros-ws-2026/build/teleop/build install --record /home/leopan/Programming/ros-ws-2026/build/teleop/install.log --single-version-externally-managed install_data

@@ -1,0 +1,23 @@
+running egg_info
+writing ../../build/teleop/teleop.egg-info/PKG-INFO
+writing dependency_links to ../../build/teleop/teleop.egg-info/dependency_links.txt
+writing entry points to ../../build/teleop/teleop.egg-info/entry_points.txt
+writing requirements to ../../build/teleop/teleop.egg-info/requires.txt
+writing top-level names to ../../build/teleop/teleop.egg-info/top_level.txt
+reading manifest file '../../build/teleop/teleop.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/teleop/teleop.egg-info/SOURCES.txt'
+running build
+running build_py
+copying teleop/driver_station.py -> /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop
+running install
+running install_lib
+copying /home/leopan/Programming/ros-ws-2026/build/teleop/build/lib/teleop/driver_station.py -> /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop
+byte-compiling /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop/driver_station.py to driver_station.cpython-312.pyc
+running install_data
+running install_egg_info
+removing '/home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop-0.0.0-py3.12.egg-info' (and everything under it)
+Copying ../../build/teleop/teleop.egg-info to /home/leopan/Programming/ros-ws-2026/install/teleop/lib/python3.12/site-packages/teleop-0.0.0-py3.12.egg-info
+running install_scripts
+Installing driver_station script to /home/leopan/Programming/ros-ws-2026/install/teleop/lib/teleop
+writing list of installed files to '/home/leopan/Programming/ros-ws-2026/build/teleop/install.log'

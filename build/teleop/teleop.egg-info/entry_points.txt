@@ -1,0 +1,2 @@
+[console_scripts]
+driver_station = teleop.driver_station:main
