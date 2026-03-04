@@ -3,7 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 import math
 
-from std_msgs.msg import Int8
+from std_msgs.msg import Int8, String
 
 
 class DriverStation(Node):
@@ -23,6 +23,10 @@ class DriverStation(Node):
 
         self.dt_l_publisher_ = self.create_publisher(Int8, 'dt_left', 10)
         self.dt_r_publisher_ = self.create_publisher(Int8, 'dt_right', 10)
+
+        # timer that periodically publishes to ensure process is alive
+        self.alive_publisher_ = self.create_publisher(String, "alive", 10)
+        self.alive_timer = self.create_timer(1, self.alive_callback)
 
     def joystick_callback(self, msg: Joy):
         new_msg = Int8()
@@ -49,7 +53,10 @@ class DriverStation(Node):
             self.right_joystick = new_msg.data
             self.dt_r_publisher_.publish(new_msg)
 
-            
+    def alive_callback(self):
+        msg = String()
+        msg.data = "driver_station:alive"
+        self.alive_publisher_.publish(msg)
 
         
 

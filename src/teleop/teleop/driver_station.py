@@ -54,7 +54,9 @@ class DriverStation(Node):
             self.dt_r_publisher_.publish(new_msg)
 
     def alive_callback(self):
-        self.alive_publisher_.publish("driver_station:alive")
+        msg = String()
+        msg.data = "driver_station:alive"
+        self.alive_publisher_.publish(msg)
 
         
 
