@@ -12,6 +12,7 @@ setup.py
 resource/teleop
 teleop/__init__.py
 teleop/driver_station.py
+teleop/teleop_bot.py
 test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py

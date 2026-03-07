@@ -19,13 +19,14 @@ class DriverStation(Node):
         self.right_joystick = 0.0
         self.left_joystick = 0.0
 
-        self.joy_sub = self.create_subscription(Joy, 'joy', self.joystick_callback, 10)
+        self.joy_subcriber = self.create_subscription(Joy, 'joy', self.joystick_callback, 10)
 
-        self.dt_l_publisher_ = self.create_publisher(Int8, 'dt_left', 10)
-        self.dt_r_publisher_ = self.create_publisher(Int8, 'dt_right', 10)
+        # Drivetrain publishers
+        self.dt_left_publisher = self.create_publisher(Int8, 'dt_left', 10)
+        self.dt_right_publisher = self.create_publisher(Int8, 'dt_right', 10)
 
         # timer that periodically publishes to ensure process is alive
-        self.alive_publisher_ = self.create_publisher(String, "alive", 10)
+        self.alive_publisher = self.create_publisher(String, "alive", 10)
         self.alive_timer = self.create_timer(1, self.alive_callback)
 
     def joystick_callback(self, msg: Joy):
@@ -40,7 +41,7 @@ class DriverStation(Node):
             new_msg.data = 0
         if new_msg.data != self.left_joystick:
             self.left_joystick = new_msg.data
-            self.dt_l_publisher_.publish(new_msg)
+            self.dt_left_publisher.publish(new_msg)
 
         # right joystick tank drive
         # [0, 100] forward
@@ -51,12 +52,12 @@ class DriverStation(Node):
             new_msg.data = 0
         if new_msg.data != self.right_joystick:
             self.right_joystick = new_msg.data
-            self.dt_r_publisher_.publish(new_msg)
+            self.dt_right_publisher.publish(new_msg)
 
     def alive_callback(self):
         msg = String()
         msg.data = "driver_station:alive"
-        self.alive_publisher_.publish(msg)
+        self.alive_publisher.publish(msg)
 
         
 

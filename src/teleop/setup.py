@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'driver_station = teleop.driver_station:main',
+            'teleop = teleop.teleop_bot:main',
         ],
     },
 )
