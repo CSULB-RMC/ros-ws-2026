@@ -2,9 +2,8 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 import math
-
+from datetime import datetime
 from std_msgs.msg import Int8, String
-
 
 class DriverStation(Node):
 
@@ -28,6 +27,8 @@ class DriverStation(Node):
         # timer that periodically publishes to ensure process is alive
         self.alive_publisher = self.create_publisher(String, "alive", 10)
         self.alive_timer = self.create_timer(1, self.alive_callback)
+
+        self.get_logger().info('[%s] Driver Station Initialized' % datetime.now().strftime("%H:%M:%S"))
 
     def joystick_callback(self, msg: Joy):
         new_msg = Int8()
