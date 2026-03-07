@@ -1,0 +1,19 @@
+# ROS 2
+build/
+install/
+log/
+.ros/
+generated/
+
+# Python
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Various editors/OS
+.vscode/
+.idea/
+.DS_Store
+.directory
+
+
