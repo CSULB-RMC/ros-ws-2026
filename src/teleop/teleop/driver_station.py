@@ -3,7 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Joy
 import math
 from datetime import datetime
-from std_msgs.msg import Int8, String
+from std_msgs.msg import Int8, String, Bool
 
 class DriverStation(Node):
 
@@ -17,12 +17,16 @@ class DriverStation(Node):
         # Memory variables, compare old value to prevent sending constant repeat msgs
         self.right_joystick = 0.0
         self.left_joystick = 0.0
+        self.excavator = False 
 
         self.joy_subcriber = self.create_subscription(Joy, 'joy', self.joystick_callback, 10)
 
         # Drivetrain publishers
         self.dt_left_publisher = self.create_publisher(Int8, 'dt_left', 10)
         self.dt_right_publisher = self.create_publisher(Int8, 'dt_right', 10)
+
+        # excavator publishers # publish type, topic, queue size
+        self.excavator_publisher = self.create_publisher(Bool, 'excavator', 10)
 
         # timer that periodically publishes to ensure process is alive
         self.alive_publisher = self.create_publisher(String, "alive", 10)
@@ -54,6 +58,15 @@ class DriverStation(Node):
         if new_msg.data != self.right_joystick:
             self.right_joystick = new_msg.data
             self.dt_right_publisher.publish(new_msg)
+
+        excavator_msg = Bool()
+        if msg.buttons[7]==1:
+            excavator_msg.data = True
+        else:
+            excavator_msg.data = False
+        if excavator_msg.data != self.excavator:
+            self.excavator = excavator_msg.data
+            self.excavator_publisher.publish()
 
     def alive_callback(self):
         msg = String()
