@@ -66,7 +66,7 @@ class DriverStation(Node):
             excavator_msg.data = False
         if excavator_msg.data != self.excavator:
             self.excavator = excavator_msg.data
-            self.excavator_publisher.publish()
+            self.excavator_publisher.publish(excavator_msg)
 
     def alive_callback(self):
         msg = String()
