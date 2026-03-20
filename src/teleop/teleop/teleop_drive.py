@@ -64,30 +64,30 @@ class TeleopDrive(Node):
         right_rpm = Vesc.signal_conversion(self.right_speed, 4)
         
         # publish left motors
-        self.can_publish(
-            self.bus,
-            self.BACK_LEFT_INNER_ID,
-            left_rpm,
-            True,
-        )
-        self.can_publish(
-            self.bus,
-            self.BACK_LEFT_OUTER_ID,
-            left_rpm,
-            True,
-        )
-        self.can_publish(
-            self.bus,
-            self.FRONT_LEFT_INNER_ID,
-            left_rpm,
-            True,
-        )
-        self.can_publish(
-            self.bus,
-            self.FRONT_LEFT_OUTER_ID,
-            left_rpm,
-            True,
-        )
+        # self.can_publish(
+        #     self.bus,
+        #     self.BACK_LEFT_INNER_ID,
+        #     left_rpm,
+        #     True,
+        # )
+        # self.can_publish(
+        #     self.bus,
+        #     self.BACK_LEFT_OUTER_ID,
+        #     left_rpm,
+        #     True,
+        # )
+        # self.can_publish(
+        #     self.bus,
+        #     self.FRONT_LEFT_INNER_ID,
+        #     left_rpm,
+        #     True,
+        # )
+        # self.can_publish(
+        #     self.bus,
+        #     self.FRONT_LEFT_OUTER_ID,
+        #     left_rpm,
+        #     True,
+        # )
 
         # publish right motors
         self.can_publish(
