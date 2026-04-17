@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'driver_station = teleop.driver_station:main',
             'teleop_drive = teleop.teleop_drive:main',
+            'teleop_drive_V2 = teleop.teleop_drive_V2:main'
         ],
     },
 )
