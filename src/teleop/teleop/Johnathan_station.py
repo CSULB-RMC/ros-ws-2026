@@ -33,7 +33,7 @@ class TeleopDrive(Node):
 
         #drivetrain publishers
         self.dt_left_publisher = self.create_publisher(Int8, 'dt_left', 10)
-        self.dt_right_publisher = self.create_publisher(Int8, 'dt_right', 10)
+        self.dt_right_publisher = self.create_publisher(Int8, 'dt_right', 10)S
 
         #Top button publisher
         self.button_top_left_publisher=self.create_publisher(Bool, 'LT', 10)
