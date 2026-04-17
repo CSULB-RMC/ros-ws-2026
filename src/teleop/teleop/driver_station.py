@@ -6,7 +6,7 @@ from datetime import datetime
 from std_msgs.msg import Int8, String
 
 class DriverStation(Node):
-
+    
     def __init__(self):
         super().__init__('driver_station')
 
@@ -32,10 +32,10 @@ class DriverStation(Node):
 
     def joystick_callback(self, msg: Joy):
         new_msg = Int8()
-
         # left joystick tank drive
         # [0, 100] forward
         # [0, -100] backwards
+        
         if msg.axes[1] > self.DEADBAND or msg.axes[1] < -self.DEADBAND:
             new_msg.data = math.floor(msg.axes[1] * self.DRIVESPEEDLIMIT)
         else:
