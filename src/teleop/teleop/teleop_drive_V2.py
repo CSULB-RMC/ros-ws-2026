@@ -19,11 +19,21 @@ class TeleopDriveV2(Node):
         self.FRONT_LEFT_OUTER_ID = Vesc.id_conversion(18, 3)
         self.FRONT_RIGHT_INNER_ID = Vesc.id_conversion(19, 3)
         self.FRONT_RIGHT_OUTER_ID = Vesc.id_conversion(20, 3)
+        self.CONTAINMENT_ID = Vesc.id_conversion(21, 3)
+        self.EXCAVATOR_ID = Vesc.id_conversion(22, 3)
+        self.LINKAGE_ID = 23
 
-        self.speedlimit = 5000 # RPM
+        self.speedlimit = 10000 # RPM
+        self.dig_speedlimit = 10000
+        self.deposit_speedlimit = 10000
 
         self.dt_left_subscriber = self.create_subscription(Int8, 'dt_left', self.dt_left_callback, 10)
         self.dt_right_subscriber = self.create_subscription(Int8, 'dt_right', self.dt_right_callback, 10)
+
+        self.linkage_subscriber = self.create_subscription(Int8, 'linkage', self.linkage_callback, 10)
+        self.excavator_subscriber = self.create_subscription(Int8, 'excavator', self.excavator_callback, 10)
+        self.containment_subscriber = self.create_subscription(Int8, 'containment', self.containment_callback, 10)
+
 
         try:
             self.bus = can.interface.Bus(interface='socketcan', channel='can0', bitrate='500000')
@@ -103,6 +113,33 @@ class TeleopDriveV2(Node):
             self.FRONT_RIGHT_OUTER_ID,
             signal,
             True,
+        )
+
+    def linkage_callback(self, msg):
+        self.get_logger().info('linkage data: "%s"' % msg.data)
+        self.can_publish(
+            self.bus,
+            self.LINKAGE_ID,
+            Vesc.signal_conversion(int(msg.data), 8),
+            False
+        )
+    
+    def excavator_callback(self, msg):
+        self.get_logger().info('excavator data: "%s"' % msg.data)
+        self.can_publish(
+            self.bus,
+            self.EXCAVATOR_ID,
+            Vesc.signal_conversion(int(msg.data) * self.dig_speedlimit, 4),
+            True
+        )
+
+    def containment_callback(self, msg):
+        self.get_logger().info('containment data: "%s"' % msg.data)
+        self.can_publish(
+            self.bus,
+            self.CONTAINMENT_ID,
+            Vesc.signal_conversion(int(msg.data) * self.deposit_speedlimit, 4),
+            True
         )
 
     

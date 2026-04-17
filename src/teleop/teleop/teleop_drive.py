@@ -19,14 +19,26 @@ class TeleopDrive(Node):
         self.FRONT_LEFT_OUTER_ID = Vesc.id_conversion(18, 3)
         self.FRONT_RIGHT_INNER_ID = Vesc.id_conversion(19, 3)
         self.FRONT_RIGHT_OUTER_ID = Vesc.id_conversion(20, 3)
+        self.CONTAINMENT_ID = Vesc.id_conversion(21, 3)
+        self.EXCAVATOR_ID = Vesc.id_conversion(22, 3)
+        self.LINKAGE_ID = 23
 
         self.left_speed = 0
         self.right_speed = 0
+        self.linkage = 0
+        self.excavator = 0
+        self.containment = 0
 
         self.speedlimit = 10000 # RPM
+        self.dig_speedlimit = 1000
+        self.deposit_speedlimit = 1000
 
         self.dt_left_subscriber = self.create_subscription(Int8, 'dt_left', self.dt_left_callback, 10)
         self.dt_right_subscriber = self.create_subscription(Int8, 'dt_right', self.dt_right_callback, 10)
+        self.linkage_subscriber = self.create_subscription(Int8, 'linkage', self.linkage_callback, 10)
+        self.excavator_subscriber = self.create_subscription(Int8, 'excavator', self.excavator_callback, 10)
+        self.containment_subscriber = self.create_subscription(Int8, 'containment', self.containment_callback, 10)
+
         self.dt_can_publish_timer = self.create_timer(0.01, self.can_publish_timer_callback)
 
         try:
@@ -56,6 +68,18 @@ class TeleopDrive(Node):
         self.get_logger().info('right data: "%s"' % msg.data)
         self.right_speed = int(msg.data / 100 * self.speedlimit)
         # self.get_logger().info('right rpm: "%s"' % rpm)
+
+    def linkage_callback(self, msg):
+        self.get_logger().info('linkage data: "%s"' % msg.data)
+        self.linkage = int(msg.data)
+    
+    def excavator_callback(self, msg):
+        self.get_logger().info('excavator data: "%s"' % msg.data)
+        self.excavator = int(msg.data)
+
+    def containment_callback(self, msg):
+        self.get_logger().info('containment data: "%s"' % msg.data)
+        self.containment = int(msg.data)
         
     
     def can_publish_timer_callback(self):
@@ -114,6 +138,30 @@ class TeleopDrive(Node):
             right_rpm,
             True,
         )
+
+        # # linkage command
+        # self.can_publish(
+        #     self.bus,
+        #     self.LINKAGE_ID,
+        #     Vesc.signal_conversion(self.linkage, 8),
+        #     False
+        # )
+
+        # # excavator command
+        # self.can_publish(
+        #     self.bus,
+        #     self.EXCAVATOR_ID,
+        #     Vesc.signal_conversion(self.excavator * self.dig_speedlimit, 4),
+        #     True
+        # )
+
+        # # containment command
+        # self.can_publish(
+        #     self.bus,
+        #     self.CONTAINMENT_ID,
+        #     Vesc.signal_conversion(self.containment * self.deposit_speedlimit, 8),
+        #     True
+        # )
 
 def main(args=None):
     rclpy.init(args=args)
