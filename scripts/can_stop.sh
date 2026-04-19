@@ -1,1 +1,2 @@
-sudo ip link set down can0
+sudo ip link set down BackDriveCan
+sudo ip link set down FrontDriveCan
