@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'driver_station = teleop.driver_station:main',
             'teleop_drive = teleop.teleop_drive:main',
+            'rover_gui = teleop.gui_node:main',
         ],
     },
 )
