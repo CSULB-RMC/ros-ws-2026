@@ -18,7 +18,7 @@ class RoverGui(Node):
         # --- Tkinter Setup ---
         self.root = tk.Tk()
         self.root.title("Rover Diagnostics")
-        self.root.geometry("400x500")
+        self.root.geometry("800x800") 
 
         # UI Variables
         self.state_var = tk.StringVar(value="IDLE")
@@ -27,28 +27,41 @@ class RoverGui(Node):
 
         # --- UI Layout ---
         # State Section
-        tk.Label(self.root, text="System State", font=("Arial", 12, "bold")).pack(pady=5)
+        tk.Label(self.root, text="System State", font=("Arial", 16, "bold")).pack(pady=5)
         tk.Label(self.root, textvariable=self.state_var, font=("Arial", 18), fg="green").pack()
 
         # Power Draw
         power_frame = tk.Frame(self.root)
         power_frame.pack(pady=20)
-        tk.Label(power_frame, text="Voltage:", font=("Arial", 10)).grid(row=0, column=0)
-        tk.Label(power_frame, textvariable=self.volt_var, font=("Arial", 10, "bold")).grid(row=0, column=1, padx=10)
-        tk.Label(power_frame, text="Total Draw:", font=("Arial", 10)).grid(row=1, column=0)
-        tk.Label(power_frame, textvariable=self.draw_var, font=("Arial", 10, "bold")).grid(row=1, column=1, padx=10)
+        tk.Label(power_frame, text="Voltage:", font=("Arial", 14)).grid(row=0, column=0)
+        tk.Label(power_frame, textvariable=self.volt_var, font=("Arial", 14, "bold")).grid(row=0, column=1, padx=10)
+        tk.Label(power_frame, text="Total Draw:", font=("Arial", 14)).grid(row=1, column=0)
+        tk.Label(power_frame, textvariable=self.draw_var, font=("Arial", 14, "bold")).grid(row=1, column=1, padx=10)
 
         # Wheel Current Caps (Visual Indicators)
-        tk.Label(self.root, text="Wheel Current Caps (Amps)", font=("Arial", 12, "bold")).pack(pady=5)
-        self.canvas = tk.Canvas(self.root, width=300, height=150, bg="white")
-        self.canvas.pack()
-        # Initialize 4 bars (one for each wheel)
+        self.canvas = tk.Canvas(self.root, width=600, height=400, bg="white", highlightthickness=1, highlightbackground="black")
+        self.canvas.pack(pady=20)
+
+        wheel_names = ["FL", "FR", "RL", "RR"]
         self.bars = []
-        for i in range(4):
-            x0 = 30 + (i * 70)
-            bar = self.canvas.create_rectangle(x0, 140, x0 + 40, 140, fill="orange")
+        self.value_labels = []
+
+        floor_y = 350 
+
+        for i, name in enumerate(wheel_names):
+            # Spread bars apart
+            x0 = 40 + (i * 140)
+            
+            # Create the Bar (starts at floor_y)
+            bar = self.canvas.create_rectangle(x0, floor_y, x0 + 80, floor_y, fill="orange")
             self.bars.append(bar)
-            self.canvas.create_text(x0 + 20, 145, text=f"W{i+1}", anchor="n")
+            
+            # Create the Moving Numerical Label (above the bar)
+            val_label = self.canvas.create_text(x0 + 40, floor_y - 5, text="0.0A", anchor="s", font=("Arial", 14, "bold"))
+            self.value_labels.append(val_label)
+            
+            # Create the Static Axis Label (under the bar)
+            self.canvas.create_text(x0 + 40, floor_y + 10, text=name, anchor="n", font=("Arial", 16, "bold"))
 
     # --- Callbacks ---
     def state_callback(self, msg):
@@ -61,13 +74,20 @@ class RoverGui(Node):
         self.draw_var.set(f"{msg.data:.2f} A")
 
     def wheel_caps_callback(self, msg):
+        floor_y = 350
+
         # Expecting an array of 4 floats [FL, FR, RL, RR]
         for i, val in enumerate(msg.data):
-            if i < 4:
-                # Scaling: 1 amp = 10 pixels high (adjust based on max expected amps) !!
-                height = min(val * 10, 130) 
-                x0 = 30 + (i * 70)
-                self.canvas.coords(self.bars[i], x0, 140 - height, x0 + 40, 140)
+            if i < len(self.bars): # Safety check
+                # Scale: 1 Amp = 30 pixels
+                height = min(val * 30, 300) 
+                x0 = 40 + (i * 140)
+                
+                # Update bar and numerical label positions
+                self.canvas.coords(self.bars[i], x0, floor_y - height, x0 + 80, floor_y)
+                self.canvas.itemconfig(self.value_labels[i], text=f"{val:.1f}A")
+                self.canvas.coords(self.value_labels[i], x0 + 40, floor_y - 5 - height)
+
 
     def run_gui(self):
         self.root.mainloop()
