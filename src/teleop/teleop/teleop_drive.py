@@ -75,7 +75,6 @@ class TeleopDrive(Node):
             signal,
             True,
         )
-        '''
         self.can_publish(
             self.FrontDriveBus,
             self.FRONT_LEFT_INNER_ID,
@@ -88,7 +87,6 @@ class TeleopDrive(Node):
             signal,
             True,
         )
-        '''
 
 
     def dt_right_callback(self, msg):
@@ -109,7 +107,6 @@ class TeleopDrive(Node):
             signal,
             True,
         )
-        '''
         self.can_publish(
             self.FrontDriveBus,
             self.FRONT_RIGHT_INNER_ID,
@@ -122,7 +119,6 @@ class TeleopDrive(Node):
             signal,
             True,
         )
-        '''
 
     def linkage_callback(self, msg):
         self.get_logger().info('linkage data: "%s"' % msg.data)

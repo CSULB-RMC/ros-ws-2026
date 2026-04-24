@@ -39,12 +39,12 @@ class TeleopDriveV2(Node):
         try:
             self.BackDriveBus = can.interface.Bus(interface='socketcan', channel='BackDriveCan', bitrate='500000')
             self.FrontDriveBus = can.interface.Bus(interface='socketcan', channel='FrontDriveCan', bitrate='500000')
-            # change to the 3rd canable when you get it, temp bound the front can
-            # self.PeripheralBus = can.interface.Bus(interface='socketcan', channel = 'FrontDriveCan', bitrate='500000')
+            self.PeripheralBus = can.interface.Bus(interface='socketcan', channel = 'PeripheralCan', bitrate='500000')
         except:
             try:
-                self.bus0 = can.interface.Bus(interface='socketcan', channel='vcan0', bitrate='500000')
-                self.bus1 = can.interface.Bus(interface='socketcan', channel='vcan1', bitrate='500000')
+                self.BackDriveBus  = can.interface.Bus(interface='socketcan', channel='vcan0', bitrate='500000')
+                self.FrontDriveBus = can.interface.Bus(interface='socketcan', channel='vcan1', bitrate='500000')
+                self.PeripheralBus = can.interface.Bus(interface='socketcan', channel='vcan1', bitrate='500000')
             except:
                 self.get_logger().info('*** No Can interface was found, failed to start Teleop Bot Node ***')
                 exit()
@@ -121,8 +121,6 @@ class TeleopDriveV2(Node):
         )
 
     def linkage_callback(self, msg):
-        self.get_logger().info('linkage OFF: "%s"' % msg.data)
-        '''
         self.get_logger().info('linkage data: "%s"' % msg.data)
         self.can_publish(
             self.PeripheralBus,
@@ -130,12 +128,8 @@ class TeleopDriveV2(Node):
             Vesc.signal_conversion(int(msg.data), 8),
             False
         )
-        '''
     
     def excavator_callback(self, msg):
-        self.get_logger().info('excavator OFF: "%s"' % msg.data)
-
-        '''
         self.get_logger().info('excavator data: "%s"' % msg.data)
         self.can_publish(
             self.PeripheralBus,
@@ -143,12 +137,8 @@ class TeleopDriveV2(Node):
             Vesc.signal_conversion(int(msg.data) * self.dig_speedlimit, 4),
             True
         )
-        '''
 
     def containment_callback(self, msg):
-        self.get_logger().info('containment OFF: "%s"' % msg.data)
-
-        '''
         self.get_logger().info('containment data: "%s"' % msg.data)
         self.can_publish(
             self.PeripheralBus,
@@ -156,7 +146,6 @@ class TeleopDriveV2(Node):
             Vesc.signal_conversion(int(msg.data) * self.deposit_speedlimit, 4),
             True
         )
-        '''
 
     
 

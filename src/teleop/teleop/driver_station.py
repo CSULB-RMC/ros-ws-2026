@@ -103,8 +103,8 @@ class DriverStation(Node):
         if msg.buttons[6]:
             new_msg.data = 1
             # input the combo b button here to reverse
-            if (msg.buttons[1]): # B Button Needed)
-                new_msg.data = -1
+            # if (msg.buttons[1]): # B Button Needed)
+            #     new_msg.data = -1
         else:
             new_msg.data = 0
         if new_msg.data != self.containment:
@@ -114,7 +114,7 @@ class DriverStation(Node):
     def alive_callback(self):
         msg = String()
         msg.data = "driver_station:alive"
-        self.alive_publisher.publish(msg)
+        # self.alive_publisher.publish(msg)
 
         
 
