@@ -69,12 +69,12 @@ class DriverStation(Node):
 
         # linkage system (Left Bumper Retract, Right Bumper Extend)
         # extend = 1
-        # retract = -1
+        # retract = 2
         # stop = 0
         if msg.buttons[5]:
             new_msg.data = 1
         elif msg.buttons[4]:
-            new_msg.data = -1
+            new_msg.data = 2
         else:
             new_msg.data = 0
         if new_msg.data != self.linkage:
@@ -103,8 +103,8 @@ class DriverStation(Node):
         if msg.buttons[6]:
             new_msg.data = 1
             # input the combo b button here to reverse
-            # if (msg.buttons[1]): # B Button Needed)
-            #     new_msg.data = -1
+            if (msg.buttons[1]): # B Button Needed)
+                new_msg.data = -1
         else:
             new_msg.data = 0
         if new_msg.data != self.containment:
